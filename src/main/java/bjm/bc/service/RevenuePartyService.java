@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import bjm.bc.model.RevenueParty;
 import bjm.bc.repository.RevenuePartyRepository;
@@ -19,6 +21,9 @@ public class RevenuePartyService {
 	@Autowired
 	private RevenuePartyRepository revenuePartyRepository;
 	
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
 	public RevenueParty createRevenueParty(RevenueParty revenueParty) {
 		String accountHash = HashGenerator.generateHash(revenueParty.getName().concat(revenueParty.getEmail()).concat(revenueParty.getOwnerAdhaarNumber()));
 		revenueParty.setAccountHash(accountHash);
@@ -28,6 +33,13 @@ public class RevenuePartyService {
 		revenueParty.setPassword(securePassword);
 		revenueParty = revenuePartyRepository.save(revenueParty);
 		LOGGER.info("Revenue Party created with ID: "+revenueParty.getId());
+		
+		SimpleMailMessage message =new SimpleMailMessage();
+		message.setFrom("admin@bjmpc.in");
+		message.setTo(revenueParty.getEmail());
+		message.setSubject("Successful Registeration");
+		message.setText("Congratulations, your registeration was successful!!");
+		javaMailSender.send(message);
 		return revenueParty;
 	}
 
