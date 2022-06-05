@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>Register Revenue Party - Result</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Result</h1>
+    <p th:text="'id: ' + ${revenueParty.id}" />
+    <p th:text="'name: ' + ${revenueParty.name}" />
+    <p th:text="'email: ' + ${revenueParty.email}" />
+    <p th:text="'ownerAdhaarNumber: ' + ${revenueParty.ownerAdhaarNumber}" />
+    <p th:text="'accountHash: ' + ${revenueParty.accountHash}" />
+    <p th:text="'revenueType: ' + ${revenueParty.revenueType}" />
+    <a href="/revenueParty">Submit another message</a>
+</body>
+</html>
