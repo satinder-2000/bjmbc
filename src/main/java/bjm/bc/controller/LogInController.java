@@ -28,7 +28,7 @@ public class LogInController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginFormSubmit(@ModelAttribute(name = "user") User user, Model model) {
-		User userdB=userService.getByEmail(user.getEmail(), user.getPassword());
+		User userdB=userService.getByEmail(user.getEmail());
 		String passwordReq=PasswordUtil.generateSecurePassword(user.getPassword(), user.getEmail());
 		String passwordDb=userdB.getPassword();
 		if (!passwordReq.equals(passwordDb)) {
@@ -41,6 +41,9 @@ public class LogInController {
 			}
 			return "login";
 		}else {
+			userdB.setFailedAttempts(0);
+			userdB.setAccountLocked(false);
+			userService.updateUser(userdB);
 			return "loginSuccess";
 		}
 		

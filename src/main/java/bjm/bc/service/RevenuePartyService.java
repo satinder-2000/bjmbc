@@ -9,6 +9,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import bjm.bc.model.RevenueParty;
+import bjm.bc.model.User;
 import bjm.bc.repository.RevenuePartyRepository;
 import bjm.bc.util.HashGenerator;
 import bjm.bc.util.PasswordUtil;
@@ -22,6 +23,9 @@ public class RevenuePartyService {
 	private RevenuePartyRepository revenuePartyRepository;
 	
 	@Autowired
+	private UserService userService; 
+	
+	@Autowired
 	private JavaMailSender javaMailSender;
 	
 	public RevenueParty createRevenueParty(RevenueParty revenueParty) {
@@ -33,6 +37,13 @@ public class RevenuePartyService {
 		revenueParty.setPassword(securePassword);
 		revenueParty = revenuePartyRepository.save(revenueParty);
 		LOGGER.info("Revenue Party created with ID: "+revenueParty.getId());
+		User user = new User();
+		user.setAccountLocked(false);
+		user.setEmail(revenueParty.getEmail());
+		user.setFailedAttempts(0);
+		user.setPassword(securePassword);
+		user =userService.createUser(user);
+		LOGGER.info("User created with ID: "+user.getId());
 		
 		SimpleMailMessage message =new SimpleMailMessage();
 		message.setFrom("admin@bjmpc.in");
@@ -61,6 +72,11 @@ public class RevenuePartyService {
 		revenueParty.setPassword(securePassword);
 		revenueParty = revenuePartyRepository.save(revenueParty);
 		LOGGER.info("Revenue Party updated with ID: "+revenueParty.getId());
+		User user=userService.getByEmail(revenueParty.getEmail());
+		user.setPassword(securePassword);
+		user = userService.updateUser(user);
+		LOGGER.info("User updated with ID: "+user.getId());
+		
 		return revenueParty;
 		
 	}

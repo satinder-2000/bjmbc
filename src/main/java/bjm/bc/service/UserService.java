@@ -22,6 +22,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     
+    public User createUser(User user) {
+    	user = userRepository.save(user);
+    	userRepository.flush();
+    	return user;
+    }
+    
+    public User updateUser(User user) {
+    	user = userRepository.save(user);
+    	userRepository.flush();
+    	return user;
+    }
+    
+    
     public void lock(User user) {
         user.setAccountLocked(true);
         user.setLockTime(LocalDateTime.now());
@@ -43,7 +56,7 @@ public class UserService {
         return false;
     }
 
-	public User getByEmail(String email, String password) {
+	public User getByEmail(String email) {
 		User user = userRepository.findByEmail(email);
 		return user;
 	}
