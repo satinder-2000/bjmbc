@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity(name = "USER")
 public class User {
@@ -15,8 +18,13 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private long id;
+	@Email
+	@Pattern(regexp = "^(.+)@(.+)$", message = "Invalid Email")
 	@Column(name = "EMAIL")
 	private String email;
+	
+	@NotEmpty
+	//@Pattern(regexp = "^(?=.*\\\\d).{8,14}$", message="Password must be between 8 and 14 chars long and include at least one numeric digit.")
 	@Column(name = "PASSWORD")
     private String password;
 	@Column(name = "FAILED_ATTEMPTS")

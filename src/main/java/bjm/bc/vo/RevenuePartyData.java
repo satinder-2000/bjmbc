@@ -1,56 +1,44 @@
-package bjm.bc.model;
+package bjm.bc.vo;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import bjm.bc.annotation.PasswordValueMatch;
 
-import javax.persistence.GenerationType;
 
-
-@Entity(name = "REVENUE_PARTY")
-public class RevenueParty {
+@PasswordValueMatch.List({
+    @PasswordValueMatch(
+            field = "password",
+            fieldMatch = "passwordConfirm",
+            message = "Passwords do not match!"
+    )
+})
+public class RevenuePartyData {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
 	private long id;
 	
 	@NotEmpty
-	@Column(name = "NAME")
 	@Size(min = 2, max = 90, message = "Name size must be between 2 and 90")
 	private String name;
 	@Email
-	@Column(name = "EMAIL")
+	//@Pattern(regexp = "^(.+)@(.+)$", message = "Invalid Email")
 	private String email;
-	@Column(name = "ORGANISATION")
-    private String organisation;
-	@Column(name = "OWNER_ADHAAR_NUMBER")
-    private String ownerAdhaarNumber;
-	@Column(name = "MEMORABLE_DATE")
-    private LocalDate memorableDate;
-	@Column(name = "ACCOUNT_HASH")
+	private String organisation;
+	private String ownerAdhaarNumber;
+	private LocalDate memorableDate;
 	private String accountHash;
-	@Column(name = "REVENUE_TYPE")
-	@Enumerated(EnumType.STRING)
-	private RevenueType revenueType;
+	private String revenueType;
 	@NotEmpty
 	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^A-Za-z0-9]).{8,}$", message="Password must be min 8 chars long and include at least one numeric digit and one special character.")
-	@Column(name = "PASSWORD")
-    private String password;
-	
-	@Transient
+	private String password;
+	@NotEmpty
 	private String memorableDateStr;
+	@NotEmpty
+	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^A-Za-z0-9]).{8,}$", message="Password must be min 8 chars long and include at least one numeric digit and one special character.")
+	private String passwordConfirm;
 	
 	
 	public long getId() {
@@ -96,10 +84,11 @@ public class RevenueParty {
 	public void setAccountHash(String accountHash) {
 		this.accountHash = accountHash;
 	}
-	public RevenueType getRevenueType() {
+	
+	public String getRevenueType() {
 		return revenueType;
 	}
-	public void setRevenueType(RevenueType revenueType) {
+	public void setRevenueType(String revenueType) {
 		this.revenueType = revenueType;
 	}
 	public LocalDate getMemorableDate() {
@@ -114,4 +103,15 @@ public class RevenueParty {
 	public void setMemorableDateStr(String memorableDateStr) {
 		this.memorableDateStr = memorableDateStr;
 	}
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+	
+	
+	
+	
+	
 }
