@@ -1,0 +1,13 @@
+package bjm.bc.model;
+
+public enum ExpenseType {
+	
+	INTEREST_PAYMENT,
+	DEFENSE,
+	FOOD_SUBSIDY,
+	HEALTHCARE,
+	EDUCATION,
+	PENSIONS_AND_SALARIES,
+	AGRICULTURE,
+	INFRASTRUCTURE
+}

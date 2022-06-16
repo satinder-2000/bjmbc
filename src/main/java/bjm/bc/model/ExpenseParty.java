@@ -3,10 +3,12 @@ package bjm.bc.model;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -14,10 +16,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.persistence.GenerationType;
 
-@Entity(name = "REVENUE_PARTY")
-public class RevenueParty {
+@Entity(name = "EXPENSE_PARTY")
+public class ExpenseParty {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +46,8 @@ public class RevenueParty {
 	@Column(name = "PARTY_HASH")
 	private String partyHash;
 	
-	@OneToMany(mappedBy = "revenueParty", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<RevenueAccount> revenueAccounts= new HashSet<>();
+	@OneToMany(mappedBy = "expenseParty", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<ExpenseAccount> expenseAccounts  = new HashSet<>();
 	
 	@Transient
 	private String memorableDateStr;
@@ -71,7 +72,6 @@ public class RevenueParty {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	public String getOrganisation() {
 		return organisation;
 	}
@@ -84,24 +84,31 @@ public class RevenueParty {
 	public void setOwnerAdhaarNumber(String ownerAdhaarNumber) {
 		this.ownerAdhaarNumber = ownerAdhaarNumber;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	public LocalDate getMemorableDate() {
 		return memorableDate;
 	}
 	public void setMemorableDate(LocalDate memorableDate) {
 		this.memorableDate = memorableDate;
 	}
-	
-	public Set<RevenueAccount> getRevenueAccounts() {
-		return revenueAccounts;
+	public String getPassword() {
+		return password;
 	}
-	public void setRevenueAccounts(Set<RevenueAccount> revenueAccounts) {
-		this.revenueAccounts = revenueAccounts;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
+	public String getPartyHash() {
+		return partyHash;
+	}
+	public void setPartyHash(String partyHash) {
+		this.partyHash = partyHash;
+	}
+	public Set<ExpenseAccount> getExpenseAccounts() {
+		return expenseAccounts;
+	}
+	public void setExpenseAccounts(Set<ExpenseAccount> expenseAccounts) {
+		this.expenseAccounts = expenseAccounts;
 	}
 	public String getMemorableDateStr() {
 		return memorableDateStr;
@@ -116,14 +123,7 @@ public class RevenueParty {
 		this.passwordConfirm = passwordConfirm;
 	}
 	
-	public String getPartyHash() {
-		return partyHash;
-	}
-	public void setPartyHash(String partyHash) {
-		this.partyHash = partyHash;
-	}
 	
-	
-	
-	
+
+
 }

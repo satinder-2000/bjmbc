@@ -1,0 +1,13 @@
+<?xml version="1.0"?> <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="bjm.bc.model.RevenueParty">
+	<property name="userLevel">
+        <type name="org.hibernate.type.EnumType">
+            <param name="enumClass">sor.hibernate.actors.UserLevel</param>
+            <param name="type">12</param>
+        </type>
+    </property> 
+</class>
+
+</hibernate-mapping>     
+ 

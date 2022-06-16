@@ -18,7 +18,7 @@
 </div>
 <div class="container col-sm-8">
 <h1>Revenue Party Registeration - Confirm</h1>
-<form action="#" th:object="${revenuePartyData}" method="post">
+<form action="#" th:object="${revenuePartyDto}" method="post">
 		<input type="hidden" th:value="${id}" th:attr="name='partyId'"/>
 		<div class="row form-group" style="margin-top: 1em;">
 			<div class="col">
@@ -61,7 +61,7 @@
 				<label for="revenueType">Revenue Type:</label>
 			</div>
 			<div class="col">
-				<select name="revenueType" th:field="*{revenueType}" class="form-control" disabled>
+				<select name="revenueType" th:field="*{revenueTypes}" class="form-control" disabled>
 					<option value="CORPORATION_TAXES">Corporation Tax</option>
 					<option value="PROPERTY_TAXES">Property Tax</option>
 					<option value="CAPITAL_TAXES">Capital Tax</option>

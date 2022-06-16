@@ -1,57 +1,44 @@
-package bjm.bc.model;
+package bjm.bc.dto;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.persistence.GenerationType;
+import bjm.bc.annotation.PasswordValueMatch;
+import bjm.bc.model.ExpenseType;
 
-@Entity(name = "REVENUE_PARTY")
-public class RevenueParty {
+
+@PasswordValueMatch.List({
+    @PasswordValueMatch(
+            field = "password",
+            fieldMatch = "passwordConfirm",
+            message = "Passwords do not match!"
+    )
+})
+public class ExpensePartyDto {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
 	private long id;
-	
 	@NotEmpty
-	@Column(name = "NAME")
 	@Size(min = 2, max = 90, message = "Name size must be between 2 and 90")
 	private String name;
 	@Email
-	@Column(name = "EMAIL")
 	private String email;
-	@Column(name = "ORGANISATION")
-    private String organisation;
-	@Column(name = "OWNER_ADHAAR_NUMBER")
-    private String ownerAdhaarNumber;
-	@Column(name = "MEMORABLE_DATE")
-    private LocalDate memorableDate;
+	private String organisation;
+	private String ownerAdhaarNumber;
+	private String accountHash;
+	private String accountName;
+	private ExpenseType[] expenseTypes;
 	@NotEmpty
 	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^A-Za-z0-9]).{8,}$", message="Password must be min 8 chars long and include at least one numeric digit and one special character.")
-	@Column(name = "PASSWORD")
-    private String password;
-	
-	@Column(name = "PARTY_HASH")
-	private String partyHash;
-	
-	@OneToMany(mappedBy = "revenueParty", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<RevenueAccount> revenueAccounts= new HashSet<>();
-	
-	@Transient
+	private String password;
+	@NotEmpty
 	private String memorableDateStr;
-	@Transient
+	@NotEmpty
+	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^A-Za-z0-9]).{8,}$", message="Password must be min 8 chars long and include at least one numeric digit and one special character.")
 	private String passwordConfirm;
+	
+	private String partyHash;
 	
 	public long getId() {
 		return id;
@@ -71,7 +58,6 @@ public class RevenueParty {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	public String getOrganisation() {
 		return organisation;
 	}
@@ -84,24 +70,29 @@ public class RevenueParty {
 	public void setOwnerAdhaarNumber(String ownerAdhaarNumber) {
 		this.ownerAdhaarNumber = ownerAdhaarNumber;
 	}
+	public String getAccountHash() {
+		return accountHash;
+	}
+	public void setAccountHash(String accountHash) {
+		this.accountHash = accountHash;
+	}
+	public String getAccountName() {
+		return accountName;
+	}
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+	public ExpenseType[] getExpenseTypes() {
+		return expenseTypes;
+	}
+	public void setExpenseTypes(ExpenseType[] expenseTypes) {
+		this.expenseTypes = expenseTypes;
+	}
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public LocalDate getMemorableDate() {
-		return memorableDate;
-	}
-	public void setMemorableDate(LocalDate memorableDate) {
-		this.memorableDate = memorableDate;
-	}
-	
-	public Set<RevenueAccount> getRevenueAccounts() {
-		return revenueAccounts;
-	}
-	public void setRevenueAccounts(Set<RevenueAccount> revenueAccounts) {
-		this.revenueAccounts = revenueAccounts;
 	}
 	public String getMemorableDateStr() {
 		return memorableDateStr;
@@ -115,7 +106,6 @@ public class RevenueParty {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
-	
 	public String getPartyHash() {
 		return partyHash;
 	}
@@ -125,5 +115,5 @@ public class RevenueParty {
 	
 	
 	
-	
+
 }

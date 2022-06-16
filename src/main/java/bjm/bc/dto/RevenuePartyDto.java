@@ -1,12 +1,11 @@
-package bjm.bc.vo;
-
-import java.time.LocalDate;
+package bjm.bc.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import bjm.bc.annotation.PasswordValueMatch;
+import bjm.bc.model.RevenueType;
 
 
 @PasswordValueMatch.List({
@@ -16,7 +15,7 @@ import bjm.bc.annotation.PasswordValueMatch;
             message = "Passwords do not match!"
     )
 })
-public class RevenuePartyData {
+public class RevenuePartyDto {
 	
 	private long id;
 	
@@ -28,9 +27,9 @@ public class RevenuePartyData {
 	private String email;
 	private String organisation;
 	private String ownerAdhaarNumber;
-	private LocalDate memorableDate;
 	private String accountHash;
-	private String revenueType;
+	private String accountName;
+	private RevenueType[] revenueTypes;
 	@NotEmpty
 	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^A-Za-z0-9]).{8,}$", message="Password must be min 8 chars long and include at least one numeric digit and one special character.")
 	private String password;
@@ -39,6 +38,9 @@ public class RevenuePartyData {
 	@NotEmpty
 	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^A-Za-z0-9]).{8,}$", message="Password must be min 8 chars long and include at least one numeric digit and one special character.")
 	private String passwordConfirm;
+	
+	private String partyHash;
+	
 	
 	
 	public long getId() {
@@ -84,18 +86,19 @@ public class RevenuePartyData {
 	public void setAccountHash(String accountHash) {
 		this.accountHash = accountHash;
 	}
-	
-	public String getRevenueType() {
-		return revenueType;
+		
+	public String getAccountName() {
+		return accountName;
 	}
-	public void setRevenueType(String revenueType) {
-		this.revenueType = revenueType;
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
-	public LocalDate getMemorableDate() {
-		return memorableDate;
+		
+	public RevenueType[] getRevenueTypes() {
+		return revenueTypes;
 	}
-	public void setMemorableDate(LocalDate memorableDate) {
-		this.memorableDate = memorableDate;
+	public void setRevenueTypes(RevenueType[] revenueTypes) {
+		this.revenueTypes = revenueTypes;
 	}
 	public String getMemorableDateStr() {
 		return memorableDateStr;
@@ -109,6 +112,13 @@ public class RevenuePartyData {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
+	public String getPartyHash() {
+		return partyHash;
+	}
+	public void setPartyHash(String partyHash) {
+		this.partyHash = partyHash;
+	}
+	
 	
 	
 	

@@ -21,7 +21,7 @@
 <form action="#" th:action="@{/}" th:object="${revenueParty}">
 <div class="row form-group" style="margin-top: 1em;">
 <p>Here is your Account Hash that will be used for the Blockchain operations:</p>
-<p><a th:text="${revenueParty.accountHash}" href="#"></a></p>
+<p><a th:text="*{partyHash}" href="#"></a></p>
 <p><a href="/" class="btn btn-primary">Home</a></p>
 </div>
 </form>

@@ -12,7 +12,4 @@ public enum RevenueType {
     GST,
     FUEL_DUTIES,
     OTHER_INDIRECT_TAXES;
-    
-    
-
 }

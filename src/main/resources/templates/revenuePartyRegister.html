@@ -25,7 +25,7 @@
 </div>
 <div class="container col-sm-8">
 <h1>Revenue Party Registeration</h1>
-<form action="#" th:action="@{/revenuePartyRegister}" th:object="${revenuePartyData}" method="post">
+<form action="#" th:action="@{/revenuePartyRegister}" th:object="${revenuePartyDto}" method="post">
 		<div class="row form-group" style="margin-top: 1em;">
 		<ul>
 			<li th:each="err : ${#fields.errors('*')}" th:text="${err}" th:class="error" />
@@ -70,25 +70,17 @@
 		
 		<div class="row form-group"  style="margin-top: 1em;">
 			<div class="col">
-				<label for="revenueType">Revenue Type:</label>
+				<label>Select Accounts:</label>
 			</div>
 			<div class="col">
-				<select name="revenueType" th:field="*{revenueType}" class="form-control">
-					<option value="CORPORATION_TAXES">Corporation Tax</option>
-					<option value="PROPERTY_TAXES">Property Tax</option>
-					<option value="CAPITAL_TAXES">Capital Tax</option>
-					<option value="OTHER_TAXES">Other Tax</option>
-					<option value="INCOME_TAX">Income Tax</option>
-					<option value="CAPITAL_TAXES">Capital Tax</option>
-					<option value="NIC">National Insurance Contribution</option>
-					<option value="VAT">VAT</option>
-					<option value="GST">GST</option>
-					<option value="FUEL_DUTIES">Fuel Duties</option>
-					<option value="OTHER_INDIRECT_TAXES">Other Indirect Taxes</option>
+				<select th:field="*{revenueTypes}" class="form-control" multiple="multiple">
+				<option th:each="rType : ${T(bjm.bc.model.RevenueType).values()}"
+                                th:value="${rType}"
+                                th:text="${rType}">rType
+                        </option>
 				</select>
 			</div>
 		</div>
-		
 		<div class="row form-group"  style="margin-top: 1em;">
 			<div class="col">
 				<label for="memDt">Memorable Date:</label>
