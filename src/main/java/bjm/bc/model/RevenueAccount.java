@@ -1,5 +1,8 @@
 package bjm.bc.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.PrimaryKeyJoinColumns;
 
 @Entity(name = "REVENUE_ACCOUNT")
 public class RevenueAccount {
@@ -29,6 +35,15 @@ public class RevenueAccount {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "REVENUE_PARTY_ID", nullable = false)
 	private RevenueParty revenueParty;
+	
+	
+	@OneToMany(mappedBy = "revenueAccount", cascade =CascadeType.ALL)
+	@PrimaryKeyJoinColumns({
+			@PrimaryKeyJoinColumn(name = "REVENUE_ACCOUNT_ID", referencedColumnName = "ID"),
+			@PrimaryKeyJoinColumn(name = "CENTRAL_ACCOUNT_ID", referencedColumnName = "ID")
+	})
+	
+	private Set<RevenueAccountTransaction> revenueAccountTransactions;
 	
 	
 	
@@ -63,5 +78,15 @@ public class RevenueAccount {
 	public void setRevenueParty(RevenueParty revenueParty) {
 		this.revenueParty = revenueParty;
 	}
+
+	public Set<RevenueAccountTransaction> getRevenueAccountTransactions() {
+		return revenueAccountTransactions;
+	}
+
+	public void setRevenueAccountTransactions(Set<RevenueAccountTransaction> revenueAccountTransactions) {
+		this.revenueAccountTransactions = revenueAccountTransactions;
+	}
+	
+	
 
 }

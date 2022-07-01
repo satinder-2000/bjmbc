@@ -2,6 +2,7 @@ package bjm.bc.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -89,13 +90,13 @@ public class RevenuePartyService {
 			revenuePartyDto.setOwnerAdhaarNumber(revenueParty.getOwnerAdhaarNumber());
 			revenuePartyDto.setMemorableDateStr(revenueParty.getMemorableDate().toString());
 			revenuePartyDto.setPartyHash(revenueParty.getPartyHash());
-			RevenueType[] revenueTypes = revenuePartyDto.getRevenueTypes();
-			for (RevenueType rt: revenueTypes) {
-				RevenueAccount ra =new RevenueAccount();
-				ra.setRevenueType(rt);
-				revenueParty.getRevenueAccounts().add(ra);
-				ra.setRevenueParty(revenueParty);
+			RevenueType[] revenueTypes = new RevenueType[revenueParty.getRevenueAccounts().size()];
+			int i=0;
+			for (RevenueAccount ra: revenueParty.getRevenueAccounts()) {
+				revenueTypes[i] =  ra.getRevenueType();
+				i++;
 			}
+			revenuePartyDto.setRevenueTypes(revenueTypes);
 			return revenuePartyDto;
 		}else {
 			return null; //Though this should never happen.

@@ -68,14 +68,14 @@ private static Logger LOGGER = Logger.getLogger(ExpensePartyController.class.get
 	}
 	
 	@RequestMapping(value = "/expensePartyAmend", method = RequestMethod.GET)
-	public String expensePartyAmend(@ModelAttribute("expenseParty") ExpensePartyDto expensePartyDto, @RequestParam Long partyId) {
+	public String expensePartyAmend(@ModelAttribute("expensePartyDto") ExpensePartyDto expensePartyDto, @RequestParam Long partyId) {
 		expensePartyDto = expensePartyService.findExpensePartyById(partyId);
 		return "exp/expensePartyAmend";
 	}
 	
 	//@PostMapping("/expensePartyAmend")
 	@RequestMapping(value = "/expensePartyAmend", method = RequestMethod.POST)
-	public String expensePartyAmendSubmit(@Valid @ModelAttribute("expenseParty") ExpensePartyDto expensePartyDto, BindingResult result, RedirectAttributes ra) {
+	public String expensePartyAmendSubmit(@Valid @ModelAttribute("expensePartyDto") ExpensePartyDto expensePartyDto, BindingResult result, RedirectAttributes ra) {
 		if (result.hasErrors()) {
 			for (ObjectError err: result.getAllErrors()) {
 				LOGGER.log(Level.SEVERE, err.getDefaultMessage());
@@ -83,14 +83,14 @@ private static Logger LOGGER = Logger.getLogger(ExpensePartyController.class.get
 			return "exp/expensePartyAmend";
 		}
 		expensePartyDto = expensePartyService.updateExpenseParty(expensePartyDto);
-		ra.addFlashAttribute("expenseParty",expensePartyDto);
+		ra.addFlashAttribute("expensePartyDto",expensePartyDto);
 		return "expensePartyConfirm";
 	}
 	
 	@RequestMapping(value = "/expensePartyFinish", method = RequestMethod.GET)
 	public String expensePartyFinish(Model model, @RequestParam Long partyId) {
 		ExpensePartyDto expensePartyDto = expensePartyService.findExpensePartyById(partyId);
-		model.addAttribute("expenseParty", expensePartyDto);
+		model.addAttribute("expensePartyDto", expensePartyDto);
 		return "exp/expensePartyFinish";
 	}
 

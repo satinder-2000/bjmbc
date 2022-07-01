@@ -1,5 +1,8 @@
 package bjm.bc.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.PrimaryKeyJoinColumns;
 
 @Entity(name = "EXPENSE_ACCOUNT")
 public class ExpenseAccount {
@@ -29,6 +35,13 @@ public class ExpenseAccount {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "EXPENSE_PARTY_ID", nullable = false)
 	private ExpenseParty expenseParty;
+	
+	@OneToMany(mappedBy = "expenseAccount", cascade =CascadeType.ALL)
+	@PrimaryKeyJoinColumns({
+		@PrimaryKeyJoinColumn(name = "EXPENSE_ACCOUNT_ID", referencedColumnName = "ID"),
+		@PrimaryKeyJoinColumn(name = "CENTRAL_ACCOUNT_ID", referencedColumnName = "ID")
+	})
+	private Set<ExpenseAccountTransaction> expenseAccountTransactions;
 
 	public long getId() {
 		return id;
@@ -60,6 +73,14 @@ public class ExpenseAccount {
 
 	public void setExpenseParty(ExpenseParty expenseParty) {
 		this.expenseParty = expenseParty;
+	}
+
+	public Set<ExpenseAccountTransaction> getExpenseAccountTransactions() {
+		return expenseAccountTransactions;
+	}
+
+	public void setExpenseAccountTransactions(Set<ExpenseAccountTransaction> expenseAccountTransactions) {
+		this.expenseAccountTransactions = expenseAccountTransactions;
 	}
 	
 	
