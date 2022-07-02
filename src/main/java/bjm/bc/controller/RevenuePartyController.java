@@ -1,5 +1,6 @@
 package bjm.bc.controller;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.validation.Valid;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import bjm.bc.dto.RevenueAccountDto;
 import bjm.bc.dto.RevenuePartyDto;
-import bjm.bc.model.RevenueParty;
 import bjm.bc.service.RevenuePartyService;
 
 @Controller
@@ -71,6 +72,11 @@ public class RevenuePartyController {
 		RevenuePartyDto revenueParty = revenuePartyService.findRevenuePartyById(partyId);
 		model.addAttribute("revenueParty", revenueParty);
 		return "revenuePartyFinish";
+	}
+	
+	
+	public List<RevenueAccountDto> getRevenueAccounts(@RequestParam Long partyId){
+		return revenuePartyService.findRevenueAccountsOfRevenueParty(partyId);
 	}
 
 }

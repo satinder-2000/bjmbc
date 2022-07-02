@@ -2,8 +2,8 @@ package bjm.bc.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import javax.validation.Valid;
@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import bjm.bc.dto.RevenueAccountDto;
 import bjm.bc.dto.RevenuePartyDto;
 import bjm.bc.model.RevenueAccount;
 import bjm.bc.model.RevenueParty;
@@ -127,5 +129,23 @@ public class RevenuePartyService {
 		return revenuePartyDto;
 		
 	}
-
+	
+	public List<RevenueAccountDto> findRevenueAccountsOfRevenueParty(Long partyId) {
+		List<RevenueAccountDto> revAcctsDto = new ArrayList<>();
+		Optional<RevenueParty> rpO = revenuePartyRepository.findById(partyId);
+		if (rpO.isPresent()) {
+			RevenueParty revenueParty = rpO.get();
+			for (RevenueAccount ra: revenueParty.getRevenueAccounts()) {
+				RevenueAccountDto aDto= new RevenueAccountDto();
+				aDto.setId(ra.getId());
+				aDto.setName(ra.getName());
+				aDto.setRevenueType(ra.getRevenueType().toString());
+				revAcctsDto.add(aDto);
+				
+			}
+			return revAcctsDto;
+		}else {
+			return null; //Though this should never happen.
+		}
+	}
 }

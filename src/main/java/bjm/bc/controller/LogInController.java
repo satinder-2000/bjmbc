@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import bjm.bc.model.User;
+import bjm.bc.model.UserType;
 import bjm.bc.service.UserService;
 import bjm.bc.util.PasswordUtil;
 
@@ -40,11 +41,25 @@ public class LogInController {
 				model.addAttribute("error", "Login failed. Attempts left: "+attemptsLeft);
 			}
 			return "login";
+			
 		}else {
-			userdB.setFailedAttempts(0);
-			userdB.setAccountLocked(false);
-			userService.updateUser(userdB);
-			return "loginSuccess";
+			UserType userType =userdB.getUserType();
+			String toReturn =null;
+			switch(userType) {
+			case REVENUE_PARTY:
+				userdB.setFailedAttempts(0);
+				userdB.setAccountLocked(false);
+				userService.updateUser(userdB);
+				toReturn = "home/RevenuePartyHome";
+				break;
+			case EXPENSE_PARTY:
+				userdB.setFailedAttempts(0);
+				userdB.setAccountLocked(false);
+				userService.updateUser(userdB);
+				toReturn = "home/ExpensePartyHome";
+				break;
+			}
+			return toReturn;
 		}
 		
 

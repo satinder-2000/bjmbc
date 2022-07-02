@@ -1,6 +1,6 @@
 package bjm.bc.dto;
 
-public class RevenueAccountData {
+public class RevenueAccountDto {
 	
 	private long id;
 	
@@ -8,8 +8,6 @@ public class RevenueAccountData {
 	
 	private String revenueType;
 	
-	private String accountHash;
-
 	public long getId() {
 		return id;
 	}
@@ -33,15 +31,5 @@ public class RevenueAccountData {
 	public void setRevenueType(String revenueType) {
 		this.revenueType = revenueType;
 	}
-
-	public String getAccountHash() {
-		return accountHash;
-	}
-
-	public void setAccountHash(String accountHash) {
-		this.accountHash = accountHash;
-	}
-	
-	
 
 }

@@ -2,6 +2,8 @@ package bjm.bc.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import javax.validation.Valid;
@@ -9,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
+import bjm.bc.dto.ExpenseAccountDto;
 import bjm.bc.dto.ExpensePartyDto;
 import bjm.bc.exception.UserRegisteredAlreadyException;
 import bjm.bc.model.ExpenseAccount;
@@ -125,6 +127,25 @@ public class ExpensePartyService {
 		}
 		return expensePartyDto;
 		
+	}
+	
+	public List<ExpenseAccountDto> findRevenueAccountsOfExpenseParty(Long partyId) {
+		List<ExpenseAccountDto> expAcctsDto = new ArrayList<>();
+		Optional<ExpenseParty> epO= expensePartyRepository.findById(partyId);
+		if (epO.isPresent()) {
+			ExpenseParty  expenseParty = epO.get();
+			for (ExpenseAccount ea: expenseParty.getExpenseAccounts()) {
+				ExpenseAccountDto aDto= new ExpenseAccountDto();
+				aDto.setId(ea.getId());
+				aDto.setName(ea.getName());
+				aDto.setExpenseType(ea.getExpenseType().toString());
+				expAcctsDto.add(aDto);
+				
+			}
+			return expAcctsDto;
+		}else {
+			return null; //Though this should never happen.
+		}
 	}
 
 
