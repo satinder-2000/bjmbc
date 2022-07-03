@@ -5,4 +5,6 @@ import bjm.bc.model.RevenueParty;
 
 public interface RevenuePartyRepository extends JpaRepository<RevenueParty, Long> {
 	
+	public RevenueParty findByEmail(String email);
+	
 }

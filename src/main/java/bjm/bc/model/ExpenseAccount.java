@@ -36,6 +36,9 @@ public class ExpenseAccount {
 	@JoinColumn(name = "EXPENSE_PARTY_ID", nullable = false)
 	private ExpenseParty expenseParty;
 	
+	@Column(name = "BALANCE")
+	private double balance;
+	
 	@OneToMany(mappedBy = "expenseAccount", cascade =CascadeType.ALL)
 	@PrimaryKeyJoinColumns({
 		@PrimaryKeyJoinColumn(name = "EXPENSE_ACCOUNT_ID", referencedColumnName = "ID"),
@@ -73,6 +76,16 @@ public class ExpenseAccount {
 
 	public void setExpenseParty(ExpenseParty expenseParty) {
 		this.expenseParty = expenseParty;
+	}
+	
+	
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 
 	public Set<ExpenseAccountTransaction> getExpenseAccountTransactions() {

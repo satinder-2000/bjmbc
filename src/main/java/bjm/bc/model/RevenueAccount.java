@@ -36,6 +36,9 @@ public class RevenueAccount {
 	@JoinColumn(name = "REVENUE_PARTY_ID", nullable = false)
 	private RevenueParty revenueParty;
 	
+	@Column(name = "BALANCE")
+	private double balance;
+	
 	
 	@OneToMany(mappedBy = "revenueAccount", cascade =CascadeType.ALL)
 	@PrimaryKeyJoinColumns({
@@ -77,6 +80,16 @@ public class RevenueAccount {
 
 	public void setRevenueParty(RevenueParty revenueParty) {
 		this.revenueParty = revenueParty;
+	}
+	
+	
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 
 	public Set<RevenueAccountTransaction> getRevenueAccountTransactions() {

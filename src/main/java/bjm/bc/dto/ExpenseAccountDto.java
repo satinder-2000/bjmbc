@@ -8,6 +8,8 @@ public class ExpenseAccountDto {
 	
 	private String expenseType;
 	
+	private double balance;
+	
 	public long getId() {
 		return id;
 	}
@@ -32,6 +34,15 @@ public class ExpenseAccountDto {
 		this.expenseType = expenseType;
 	}
 
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	
 	
 
 }

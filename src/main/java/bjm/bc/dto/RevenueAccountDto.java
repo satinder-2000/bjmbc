@@ -8,6 +8,8 @@ public class RevenueAccountDto {
 	
 	private String revenueType;
 	
+	private double balance;
+	
 	public long getId() {
 		return id;
 	}
@@ -31,5 +33,15 @@ public class RevenueAccountDto {
 	public void setRevenueType(String revenueType) {
 		this.revenueType = revenueType;
 	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+	
+	
 
 }

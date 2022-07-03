@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,5 +148,45 @@ public class RevenuePartyService {
 		}else {
 			return null; //Though this should never happen.
 		}
+	}
+	
+	public RevenuePartyDto findRevenuePartyByEmail(String partyEmail) {
+		RevenueParty rp = revenuePartyRepository.findByEmail(partyEmail);
+		if (rp!=null) {
+			RevenuePartyDto revenuePartyDto = new RevenuePartyDto();
+			revenuePartyDto.setId(rp.getId());
+			revenuePartyDto.setName(rp.getName());
+			revenuePartyDto.setEmail(rp.getEmail());
+			revenuePartyDto.setOrganisation(rp.getOrganisation());
+			revenuePartyDto.setOwnerAdhaarNumber(rp.getOwnerAdhaarNumber());
+			revenuePartyDto.setMemorableDateStr(rp.getMemorableDate().toString());
+			revenuePartyDto.setPartyHash(rp.getPartyHash());
+			RevenueType[] revenueTypes = new RevenueType[rp.getRevenueAccounts().size()];
+			int i=0;
+			for (RevenueAccount ra: rp.getRevenueAccounts()) {
+				revenueTypes[i] =  ra.getRevenueType();
+				i++;
+			}
+			revenuePartyDto.setRevenueTypes(revenueTypes);
+			return revenuePartyDto;
+		}else {
+			return null; //Though this should never happen.
+		}
+	}
+	
+	
+	public List<RevenueAccountDto> findRevenueAccountsOfRevenueParty(String email){
+		List<RevenueAccountDto> revAcctsDto = new ArrayList<>();
+		RevenueParty revenueParty = revenuePartyRepository.findByEmail(email);
+		Set<RevenueAccount> revenuePartyAccounts = revenueParty.getRevenueAccounts();
+		for (RevenueAccount ra: revenuePartyAccounts) {
+			RevenueAccountDto raDto = new RevenueAccountDto();
+			raDto.setId(ra.getId());
+			raDto.setRevenueType(ra.getRevenueType().toString());
+			raDto.setBalance(ra.getBalance());
+			revAcctsDto.add(raDto);
+		}
+		return revAcctsDto;
+		
 	}
 }

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,24 +130,17 @@ public class ExpensePartyService {
 		
 	}
 	
-	public List<ExpenseAccountDto> findRevenueAccountsOfExpenseParty(Long partyId) {
+	public List<ExpenseAccountDto> findExpenseAccountsOfExpenseParty(String email) {
 		List<ExpenseAccountDto> expAcctsDto = new ArrayList<>();
-		Optional<ExpenseParty> epO= expensePartyRepository.findById(partyId);
-		if (epO.isPresent()) {
-			ExpenseParty  expenseParty = epO.get();
-			for (ExpenseAccount ea: expenseParty.getExpenseAccounts()) {
-				ExpenseAccountDto aDto= new ExpenseAccountDto();
-				aDto.setId(ea.getId());
-				aDto.setName(ea.getName());
-				aDto.setExpenseType(ea.getExpenseType().toString());
-				expAcctsDto.add(aDto);
-				
-			}
-			return expAcctsDto;
-		}else {
-			return null; //Though this should never happen.
+		ExpenseParty ep= expensePartyRepository.findByEmail(email);
+		Set<ExpenseAccount> expenseAccounts = ep.getExpenseAccounts();
+		for (ExpenseAccount ea: expenseAccounts) {
+			ExpenseAccountDto eaDto =new ExpenseAccountDto();
+			eaDto.setId(ea.getId());
+			eaDto.setExpenseType(ea.getExpenseType().toString());
+			eaDto.setBalance(ea.getBalance());
+			expAcctsDto.add(eaDto);
 		}
+		return expAcctsDto;
 	}
-
-
 }

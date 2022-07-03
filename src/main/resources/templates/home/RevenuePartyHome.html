@@ -20,7 +20,46 @@
 <div class="container col-sm-8">
 <h1>Revenue Party Home</h1>
 <p><a href="/" class="btn btn-primary">Home</a></p>
+
+<!-- Header -->
+<div class="row form-group" style="margin-top: 1em;">
+	<div class="col">
+		<label>Account</label>
+	</div>
+	<div class="col">
+		<label>Account Balance</label>
+	</div>
+	<div class="col">
+		<label>Pay Money</label>
+	</div>
+	<div class="col">
+		<label>&nbsp;</label>
+	</div>
 </div>
+<!-- Rows -->
+
+<tr th:each="revPartyAcct : ${revenuePartyAccounts}">
+<form id="${revPartyAcct.id}">
+<div class="row form-group"  style="margin-top: 1em;">
+<div class="col">
+<label>Account</label>
+</div>
+<div class="col">
+<label>Account Balance</label>
+</div>
+<div class="col">
+<label>Pay Money</label>
+</div>
+<div class="col">
+<label>&nbsp;</label>
+</div>
+</div>
+</form>
+<td th:text="${revPartyAcct.id}"></td>
+</tr>
+</table>
+</div>
+
 
 <div th:replace="fragments :: right">
 </div>
