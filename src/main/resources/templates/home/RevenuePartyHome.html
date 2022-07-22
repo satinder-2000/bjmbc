@@ -24,40 +24,18 @@
 <!-- Header -->
 <div class="row form-group" style="margin-top: 1em;">
 	<div class="col">
-		<label>Account</label>
-	</div>
-	<div class="col">
-		<label>Account Balance</label>
-	</div>
-	<div class="col">
-		<label>Pay Money</label>
-	</div>
-	<div class="col">
-		<label>&nbsp;</label>
+		<label>Click to Pay Money in to the Account</label>
 	</div>
 </div>
 <!-- Rows -->
+<div class="List-group" th:each="revPartyAcct : ${revenuePartyAccounts}">
+	
+	<a href="#" th:href="@{/revenuePartyAccountManage(accountId=${revPartyAcct.id}, )}" class="List-group-item">
+	<p th:text= "${revPartyAcct.revenueType}"/>
+	</a>
 
-<tr th:each="revPartyAcct : ${revenuePartyAccounts}">
-<form id="${revPartyAcct.id}">
-<div class="row form-group"  style="margin-top: 1em;">
-<div class="col">
-<label>Account</label>
 </div>
-<div class="col">
-<label>Account Balance</label>
-</div>
-<div class="col">
-<label>Pay Money</label>
-</div>
-<div class="col">
-<label>&nbsp;</label>
-</div>
-</div>
-</form>
-<td th:text="${revPartyAcct.id}"></td>
-</tr>
-</table>
+
 </div>
 
 

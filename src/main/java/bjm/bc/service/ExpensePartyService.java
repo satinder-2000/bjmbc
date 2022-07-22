@@ -72,7 +72,7 @@ public class ExpensePartyService {
 		LOGGER.info("User created with ID: "+user.getId());
 		
 		SimpleMailMessage message =new SimpleMailMessage();
-		message.setFrom("admin@bjmpc.in");
+		message.setFrom("ssingh.2023@gmail.com");
 		message.setTo(expenseParty.getEmail());
 		message.setSubject("Successful Registeration");
 		message.setText("Congratulations, your registeration was successful!!");

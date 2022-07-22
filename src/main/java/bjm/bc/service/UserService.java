@@ -2,14 +2,12 @@ package bjm.bc.service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import bjm.bc.model.User;
 import bjm.bc.repository.UserRepository;
-import bjm.bc.util.PasswordUtil;
+
 
 @Service
 @Transactional

@@ -61,9 +61,14 @@
 				<label for="expTypes">Expense Type(s):</label>
 			</div>
 			<div class="col">
-				<ul id="expTypes" th:each="expT : ${expensTypes}">
-	    			<li th:text="${expT}"></li>
+				<ul th:each="expT : ${expenseTypes}">
+	    			<li th:text="${expT.value}"></li>
 				</ul>
+				<table>
+					<tr th:each="expT : ${expenseTypes}">
+					<td th:text="${expT.value}"></td>
+					</tr> 
+				</table>
 			</div>
 		</div>
 		

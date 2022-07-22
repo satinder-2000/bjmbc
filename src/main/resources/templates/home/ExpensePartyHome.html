@@ -20,6 +20,21 @@
 <div class="container col-sm-8">
 <h1>Expense Party Home</h1>
 <p><a href="/" class="btn btn-primary">Home</a></p>
+<!-- Header -->
+<div class="row form-group" style="margin-top: 1em;">
+	<div class="col">
+		<label>Click to Pay Money out of the Account</label>
+	</div>
+</div>
+<!-- Rows -->
+<div class="List-group" th:each="expPartyAcct : ${expensePartyAccounts}">
+	
+	<a href="#" th:href="@{/expensePartyAccountManage(accountId=${expPartyAcct.id})}" class="List-group-item">
+	<p th:text= "${expPartyAcct.expenseType}"/>
+	</a>
+
+</div>
+
 </div>
 
 <div th:replace="fragments :: right">

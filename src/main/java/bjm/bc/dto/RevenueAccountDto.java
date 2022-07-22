@@ -4,11 +4,15 @@ public class RevenueAccountDto {
 	
 	private long id;
 	
-	private String name;
+	private long partyId;
 	
 	private String revenueType;
 	
 	private double balance;
+	
+	private double balanceToAdd;
+	
+	private String info;
 	
 	public long getId() {
 		return id;
@@ -18,12 +22,14 @@ public class RevenueAccountDto {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	
+
+	public long getPartyId() {
+		return partyId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPartyId(long partyId) {
+		this.partyId = partyId;
 	}
 
 	public String getRevenueType() {
@@ -41,6 +47,24 @@ public class RevenueAccountDto {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
+
+	public double getBalanceToAdd() {
+		return balanceToAdd;
+	}
+
+	public void setBalanceToAdd(double balanceToAdd) {
+		this.balanceToAdd = balanceToAdd;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+	
+	
 	
 	
 

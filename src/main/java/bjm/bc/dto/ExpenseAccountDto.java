@@ -9,6 +9,8 @@ public class ExpenseAccountDto {
 	private String expenseType;
 	
 	private double balance;
+	private double balanceToAdd;
+	private double balanceToWithdraw;
 	
 	public long getId() {
 		return id;
@@ -42,6 +44,24 @@ public class ExpenseAccountDto {
 		this.balance = balance;
 	}
 
+	public double getBalanceToAdd() {
+		return balanceToAdd;
+	}
+
+	public void setBalanceToAdd(double balanceToAdd) {
+		this.balanceToAdd = balanceToAdd;
+	}
+
+	public double getBalanceToWithdraw() {
+		return balanceToWithdraw;
+	}
+
+	public void setBalanceToWithdraw(double balanceToWithdraw) {
+		this.balanceToWithdraw = balanceToWithdraw;
+	}
+
+	
+	
 	
 	
 

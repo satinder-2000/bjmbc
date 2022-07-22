@@ -73,7 +73,7 @@ public class RevenuePartyService {
 		LOGGER.info("User created with ID: "+user.getId());
 		
 		SimpleMailMessage message =new SimpleMailMessage();
-		message.setFrom("admin@bjmpc.in");
+		message.setFrom("ssingh.2023@gmail.com");
 		message.setTo(revenueParty.getEmail());
 		message.setSubject("Successful Registeration");
 		message.setText("Congratulations, your registeration was successful!!");
@@ -139,7 +139,7 @@ public class RevenuePartyService {
 			for (RevenueAccount ra: revenueParty.getRevenueAccounts()) {
 				RevenueAccountDto aDto= new RevenueAccountDto();
 				aDto.setId(ra.getId());
-				aDto.setName(ra.getName());
+				aDto.setPartyId(partyId);
 				aDto.setRevenueType(ra.getRevenueType().toString());
 				revAcctsDto.add(aDto);
 				
@@ -182,7 +182,8 @@ public class RevenuePartyService {
 		for (RevenueAccount ra: revenuePartyAccounts) {
 			RevenueAccountDto raDto = new RevenueAccountDto();
 			raDto.setId(ra.getId());
-			raDto.setRevenueType(ra.getRevenueType().toString());
+			raDto.setPartyId(revenueParty.getId());
+			raDto.setRevenueType(ra.getRevenueType().value);
 			raDto.setBalance(ra.getBalance());
 			revAcctsDto.add(raDto);
 		}

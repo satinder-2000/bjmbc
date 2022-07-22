@@ -26,7 +26,7 @@ public class RevenuePartyController {
 
 	@RequestMapping(value = "/revenuePartyRegister", method = RequestMethod.GET)
 	public String revenuePartyRegisterForm(@ModelAttribute("revenuePartyDto") RevenuePartyDto revenuePartyDto) {
-		return "revenuePartyRegister";
+		return "rev/revenuePartyRegister";
 	}
 
 	@RequestMapping(value = "/revenuePartyRegister", method = RequestMethod.POST)
@@ -35,20 +35,20 @@ public class RevenuePartyController {
 			for (ObjectError err: result.getAllErrors()) {
 				LOGGER.log(Level.SEVERE, err.getDefaultMessage());
 			}
-			return "revenuePartyRegister";
+			return "rev/revenuePartyRegister";
 		}
 		//Trnasfer all the data to the Entity being done in the Service layer 
 		revenuePartyDto = revenuePartyService.createRevenueParty(revenuePartyDto);
 		
 		ra.addFlashAttribute("revenuePartyDto",revenuePartyDto);
-		return "revenuePartyConfirm";
+		return "rev/revenuePartyConfirm";
 	}
 	
 	//@GetMapping("/revenuePartyAmend")
 	@RequestMapping(value = "/revenuePartyAmend", method = RequestMethod.GET)
 	public String revenuePartyAmend(@ModelAttribute("revenueParty") RevenuePartyDto revenuePartyDto, @RequestParam Long partyId) {
 		revenuePartyDto = revenuePartyService.findRevenuePartyById(partyId);
-		return "revenuePartyAmend";
+		return "rev/revenuePartyAmend";
 	}
 	
 	//@PostMapping("/revenuePartyAmend")
@@ -58,18 +58,18 @@ public class RevenuePartyController {
 			for (ObjectError err: result.getAllErrors()) {
 				LOGGER.log(Level.SEVERE, err.getDefaultMessage());
 			}
-			return "revenuePartyAmend";
+			return "rev/revenuePartyAmend";
 		}
 		revenuePartyDto = revenuePartyService.updateRevenueParty(revenuePartyDto);
 		ra.addFlashAttribute("revenueParty",revenuePartyDto);
-		return "revenuePartyConfirm";
+		return "rev/revenuePartyConfirm";
 	}
 	
 	@RequestMapping(value = "/revenuePartyFinish", method = RequestMethod.GET)
 	public String revenuePartyFinish(Model model, @RequestParam Long partyId) {
 		RevenuePartyDto revenueParty = revenuePartyService.findRevenuePartyById(partyId);
 		model.addAttribute("revenueParty", revenueParty);
-		return "revenuePartyFinish";
+		return "rev/revenuePartyFinish";
 	}
 	
 }

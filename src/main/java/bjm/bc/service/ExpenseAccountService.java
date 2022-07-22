@@ -4,6 +4,10 @@ import java.util.Optional;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import bjm.bc.dto.ExpenseAccountDto;
+import bjm.bc.dto.ExpenseAccountDto;
+import bjm.bc.model.ExpenseAccount;
 import bjm.bc.model.ExpenseAccount;
 import bjm.bc.repository.ExpenseAccountRepository;
 
@@ -50,6 +54,24 @@ public class ExpenseAccountService {
 			return false;
 		}
 		
+	}
+
+	public ExpenseAccountDto getExpenseAccountToManage(long accountId) {
+		Optional<ExpenseAccount> expenseAccountOp = expenseAccountRepository.findById(accountId);
+		//ModelAndView modelAndView = null;
+		if (expenseAccountOp.isPresent()) {
+			ExpenseAccount expenseAccount = expenseAccountOp.get();
+			ExpenseAccountDto expenseAccountDto = new ExpenseAccountDto();
+			//modelAndView = new ModelAndView();
+			expenseAccountDto.setId(accountId);
+			expenseAccountDto.setExpenseType(expenseAccount.getExpenseType().value);
+			expenseAccountDto.setBalance(expenseAccount.getBalance());
+			//modelAndView.addObject("expenseAccount",expenseAccountDto);
+			//modelAndView.setViewName("ExpensePartyAccountManage");
+			return expenseAccountDto;
+		}else {
+			return null;
+		}
 	}
 	
 	
